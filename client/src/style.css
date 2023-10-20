@@ -1,0 +1,47 @@
+.App {
+  text-align: center;
+  margin-top: 100px;
+}
+
+/* Nav */
+.navbar {
+  position: fixed !important;
+  transition: all 0.3s ease-out 0s !important;
+  padding: 1rem 2rem !important;
+  font-size: 1.3rem !important;
+}
+
+.navbar-brand {
+  font-size: 1.5rem !important;
+  font-weight: bold;
+}
+
+.navbar-nav .nav-link {
+  color: white !important;
+  padding-left: 2rem !important;
+}
+
+.user-form {
+  width: 60%;
+  border: none;
+  font-size: 30px;
+  margin: 2% 0% 0% 40%;
+  text-align: center;
+}
+
+.user-form > button {
+  margin-right: 70%;
+}
+
+.footer {
+  color: white !important;
+  bottom: 0 !important;
+  padding-top: 10px !important;
+  padding-bottom: 8px !important ;
+}
+
+@media (max-width: 767px) {
+  .footer {
+    display: none;
+  }
+}
