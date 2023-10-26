@@ -32,7 +32,7 @@ const Cart_Mutation = {
         const updatedCart = await Cart.findByIdAndUpdate(id, {
           products: input,
         });
-        console.log('update', updatedCart);
+
         if (updatedCart) {
           return {
             success: true,

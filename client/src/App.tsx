@@ -21,7 +21,7 @@ const App = () => (
         <Router>
           <NavMenu />
           <Cart />
-          <Container className="App main">
+          <Container className="App">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route element={<AuthRoute />}>

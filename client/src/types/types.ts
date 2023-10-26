@@ -42,7 +42,12 @@ type ProductType = {
 };
 
 type CartProductType = {
-  id: string;
+  product: {
+    id: string;
+    name: string;
+    image: string;
+    price: number;
+  };
   size?: string;
   color?: string;
   quantity: number;

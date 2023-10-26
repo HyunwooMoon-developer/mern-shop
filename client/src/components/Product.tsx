@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { Button, Card, Col, Form, Row } from 'react-bootstrap';
 import { formatUSD } from '../utils/functions';
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
@@ -16,6 +16,14 @@ const Product = ({ product }: { product: ProductType }) => {
   const [color, setColor] = useState<string | null>(
     product.color.length > 0 ? product.color[0] : null
   );
+  const [items, setItems] = useState<
+    {
+      product: string;
+      size: string | null;
+      color: string | null;
+      quantity: number;
+    }[]
+  >([]);
 
   const { user } = useContext(AuthContext) as AuthContextType;
   const { toggleCart } = useContext(ShopContext) as ShopContextType;
@@ -26,7 +34,7 @@ const Product = ({ product }: { product: ProductType }) => {
   const [updateCart] = useMutation(UPDATE_CART, {
     variables: {
       id: cart?.id,
-      input: [{ product: product.id, quantity: qty, size, color }],
+      input: items,
     },
     update(cache: ApolloCache<any>) {
       toggleCart();
@@ -37,15 +45,60 @@ const Product = ({ product }: { product: ProductType }) => {
     },
   });
 
+  const updateCartItems = async () => {
+    const existItem = cart.products.find(
+      (item: CartProductType) =>
+        item.product.id === product.id &&
+        item.color === color &&
+        item.size === size
+    );
+
+    const updatedItems =
+      cart && cart.products.length > 0
+        ? existItem
+          ? items.map((item) => {
+              if (
+                item.product === product.id &&
+                item.size === size &&
+                item.color === color
+              ) {
+                return {
+                  ...item,
+                  quantity: item.quantity + qty,
+                };
+              } else {
+                return item;
+              }
+            })
+          : [...items, { product: product.id, quantity: qty, color, size }]
+        : [{ product: product.id, quantity: qty, size, color }];
+
+    await setItems(updatedItems);
+    await updateCart();
+  };
+
+  useEffect(() => {
+    if (cart && cart.products.length > 0) {
+      setItems(
+        cart.products.map((product: CartProductType) => ({
+          product: product.product.id,
+          size: product.size,
+          quantity: product.quantity,
+          color: product.color,
+        }))
+      );
+    }
+  }, [cart]);
+
   if (loading) return null;
 
   return (
     <Card className="mt-5 g-4" style={{ width: 250, height: 500 }}>
-      <Card.Img
+      {/*       <Card.Img
         variant="top"
         src={`/assets/${product.image}`}
         style={{ width: 250, height: 200 }}
-      />
+      /> */}
       <Card.Body>
         <Card.Title>{product.name}</Card.Title>
         <Card.Text>
@@ -125,7 +178,7 @@ const Product = ({ product }: { product: ProductType }) => {
             <Button
               variant={user ? 'outline-warning' : 'secondary'}
               disabled={!user}
-              onClick={() => updateCart()}
+              onClick={() => updateCartItems()}
             >
               Add to Cart
             </Button>

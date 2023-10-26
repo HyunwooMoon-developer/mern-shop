@@ -56,6 +56,8 @@ export const GET_CART = gql`
         product {
           id
           name
+          image
+          price
         }
         size
         color
