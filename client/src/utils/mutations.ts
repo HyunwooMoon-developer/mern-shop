@@ -29,3 +29,11 @@ export const UPDATE_CART = gql`
     }
   }
 `;
+
+export const Add_Order = gql`
+  mutation addOrder($input: OrderInput) {
+    addOrder(input: $input) {
+      success
+    }
+  }
+`;

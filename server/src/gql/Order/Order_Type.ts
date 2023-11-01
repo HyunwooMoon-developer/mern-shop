@@ -25,24 +25,17 @@ const Order_Type = gql`
   }
 
   type Mutation {
-    addOrder(input: OrderInput): Order!
-
-    updateOrder(id: ID!, input: OrderInput): Order!
+    addOrder(input: OrderInput): SuccessResult
   }
 
   input OrderInput {
     orderList: ID!
+    token: String!
     amount: Float!
-    address: BillingAddressInput
-    status: String
-  }
-
-  input BillingAddressInput {
-    street: String
-    unit: String
-    city: String
-    state: String
-    zip: String
+    street: String!
+    city: String!
+    state: String!
+    zip: String!
   }
 `;
 

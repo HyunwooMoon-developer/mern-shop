@@ -1,12 +1,14 @@
 import { useContext, useEffect, useState } from 'react';
-import { Offcanvas, Row } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { Button, Offcanvas, Row } from 'react-bootstrap';
 import { ShopContext } from '../context/shop';
-import { useMutation, useQuery, ApolloCache } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { GET_CART } from '../utils/queries';
 import { AuthContext } from '../context/auth';
 import CartItem from './CartItem';
-import { UPDATE_CART } from '../utils/mutations';
+import { Add_Order, UPDATE_CART } from '../utils/mutations';
 import { calculateTotal, formatUSD } from '../utils/functions';
+import StripeCheckout from 'react-stripe-checkout';
 
 const Cart = () => {
   const [items, setItems] = useState<
@@ -18,11 +20,13 @@ const Cart = () => {
       price: number;
     }[]
   >([]);
+  const [stripeToken, setStripeToken] = useState<any>(null);
 
   const { cartOpen, toggleCart } = useContext(ShopContext) as ShopContextType;
   const { user } = useContext(AuthContext) as AuthContextType;
 
   const { loading, data } = useQuery(GET_CART);
+
   const cart = data?.getCart;
 
   const [updateCart] = useMutation(UPDATE_CART, {
@@ -38,6 +42,31 @@ const Cart = () => {
       console.log(err);
     },
   });
+
+  const [addOrder] = useMutation(Add_Order, {
+    variables: {
+      input: {
+        orderList: cart?.id,
+        token: stripeToken?.id,
+        amount: calculateTotal({ items }),
+        street: stripeToken?.card.address_line1,
+        city: stripeToken?.card.address_city,
+        state: stripeToken?.card.address_state,
+        zip: stripeToken?.card.address_zip,
+      },
+    },
+    update(cache, { data: { addOrder } }) {
+      if (addOrder.success) {
+        toggleCart();
+      }
+    },
+    refetchQueries: [GET_CART, 'getCart'],
+    onError(err) {
+      console.log(err);
+    },
+  });
+
+  const onToken = (token: any) => setStripeToken(token);
 
   const handleRemove = async (id: string, size?: string, color?: string) => {
     const deletedItem = items.find(
@@ -60,8 +89,18 @@ const Cart = () => {
           price: product.product.price,
         }))
       );
+    } else {
+      setItems([]);
     }
   }, [cart]);
+
+  useEffect(() => {
+    if (stripeToken) {
+      addOrder();
+    }
+  }, [stripeToken]);
+
+  useEffect(() => {}, [stripeToken, cart]);
 
   if (loading) return null;
   return user ? (
@@ -90,6 +129,22 @@ const Cart = () => {
             Total: <b>{formatUSD(calculateTotal({ items }))}</b>
           </h5>
         </Row>
+        {cart && cart.products?.length > 0 ? (
+          <Row className="justify-content-center">
+            <StripeCheckout
+              name="Moon Shop"
+              ComponentClass="div"
+              image={'/assets/cart.jpg'}
+              stripeKey={import.meta.env.VITE_STRIPE_KEY}
+              token={onToken}
+              billingAddress
+              shippingAddress
+              description={`Your total is ${formatUSD(
+                calculateTotal({ items })
+              )}`}
+            />
+          </Row>
+        ) : null}
       </Offcanvas.Body>
     </Offcanvas>
   ) : null;
