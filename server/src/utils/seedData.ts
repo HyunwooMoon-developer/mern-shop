@@ -153,34 +153,6 @@ const seedData = async () => {
     ]);
 
     console.log('Cart seeded');
-    /*
-    await Order.deleteMany();
-
-    await Order.insertMany([
-      {
-        orderList: cart[0],
-        amount: 67.97,
-        address: {
-          street: 'test street',
-          city: 'Los Angeles',
-          state: 'CA',
-          zip: '90001',
-        },
-        status: 'delivered',
-      },
-      {
-        orderList: cart[1],
-        amount: 53.98,
-        address: {
-          street: 'test street',
-          city: 'Los Angeles',
-          state: 'CA',
-          zip: '90001',
-        },
-      },
-    ]);
-
-    console.log('Order seeded'); */
 
     db.disconnect();
   } catch (err) {

@@ -11,20 +11,27 @@ const Order_Mutation = {
       args: { input: { [key: string]: any } },
       context: any
     ) => {
-      const user = checkAuth(context);
+      try {
+        const user = checkAuth(context);
 
-      let stripe = new Stripe(process.env.STRIPE_KEY as string, {
-        apiVersion: '2023-10-16',
-      });
+        if (!user) {
+          throw new GraphQLError(`Invalid User`, {
+            extensions: { code: 'UNAUTHENTICATED' },
+          });
+        }
 
-      const { orderList, amount, token, street, city, state, zip } = args.input;
+        let stripe = new Stripe(process.env.STRIPE_KEY as string, {
+          apiVersion: '2023-10-16',
+        });
 
-      const cartList = (await Cart.findById(orderList).populate(
-        'products.product'
-      )) as any;
+        const { orderList, amount, token, street, city, state, zip } =
+          args.input;
 
-      if (cartList && stripe) {
-        try {
+        const cartList = await Cart.findById(orderList).populate(
+          'products.product'
+        );
+
+        if (cartList && stripe) {
           const session = await stripe.charges.create({
             amount: parseInt((amount * 100).toFixed(0)),
             source: token,
@@ -63,49 +70,11 @@ const Order_Mutation = {
               return { success: true };
             }
           }
-        } catch (err) {
-          console.log(err);
         }
-      }
-      /* if (!user) {
-        throw new GraphQLError(`Invalid User`, {
-          extensions: { code: 'UNAUTHENTICATED' },
-        });
-      }
-
-      const newOrder = new Order(args.input);
-
-      try {
-        await newOrder.save();
-
-        return { success: true };
       } catch (err) {
         console.log(err);
-      } */
+      }
     },
-    /*    updateOrder: async (
-      _: any,
-      args: { id: string; input: { [key: string]: any } },
-      context: any
-    ) => {
-      const user = checkAuth(context);
-
-      if (!user) {
-        throw new GraphQLError(`Invalid User`, {
-          extensions: { code: 'UNAUTHENTICATED' },
-        });
-      }
-
-      try {
-        const updatedOrder = await Order.findByIdAndUpdate(args.id, {
-          $set: args.input,
-        });
-
-        return updatedOrder;
-      } catch (err) {
-        console.log(err);
-      }
-    }, */
   },
 };
 
