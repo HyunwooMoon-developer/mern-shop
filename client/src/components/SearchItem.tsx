@@ -7,7 +7,7 @@ const SearchItem = () => {
   const { q, searchProduct } = useContext(ShopContext) as ShopContextType;
 
   return (
-    <InputGroup className="mb-3">
+    <InputGroup className="mb-1">
       <InputGroup.Text>
         <AiOutlineSearch />
       </InputGroup.Text>

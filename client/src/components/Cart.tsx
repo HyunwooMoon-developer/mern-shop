@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Button, Offcanvas, Row } from 'react-bootstrap';
+import { Offcanvas, Row } from 'react-bootstrap';
 import { ShopContext } from '../context/shop';
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_CART } from '../utils/queries';

@@ -13,8 +13,8 @@ const CategoryList = () => {
 
   if (loading) return null;
   return (
-    <Container className="gap-2">
-      <Row className="mt-3" style={{ width: '50%' }}>
+    <Container className="gap-2 mb-5">
+      <Row className="mt-3 category-button">
         <Button
           onClick={() => changeCategory('')}
           variant={currentCategory === '' ? 'primary' : 'outline-primary'}
@@ -23,7 +23,7 @@ const CategoryList = () => {
         </Button>
       </Row>
       {categories?.map((category: CategoryType) => (
-        <Row key={category.id} className="mt-3" style={{ width: '50%' }}>
+        <Row key={category.id} className="mt-3 category-button">
           <Button
             onClick={() => changeCategory(category.id)}
             variant={

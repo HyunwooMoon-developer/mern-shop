@@ -20,7 +20,7 @@ const ProductList = () => {
   return (
     <Row>
       {products?.map((product: ProductType) => (
-        <Col key={product.id} md={4}>
+        <Col key={product.id} md={4} sm={12}>
           <Product product={product} />
         </Col>
       ))}

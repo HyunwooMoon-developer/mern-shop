@@ -93,11 +93,11 @@ const Product = ({ product }: { product: ProductType }) => {
   if (loading) return null;
 
   return (
-    <Card className="mt-5 g-4" style={{ width: 250, height: 500 }}>
+    <Card className="mb-5 ml-5 card-size">
       <Card.Img
         variant="top"
         src={`/assets/${product.image}`}
-        style={{ width: 250, height: 200 }}
+        className="card-img"
       />
       <Card.Body>
         <Card.Title>{product.name}</Card.Title>
@@ -106,7 +106,7 @@ const Product = ({ product }: { product: ProductType }) => {
         </Card.Text>
         <Row className="gap-2">
           <Row style={{ marginLeft: 15 }} className="gap-2">
-            <Col md={3}>
+            <Col xs={3}>
               <Button
                 variant="outline-info"
                 onClick={() => setQty(qty - 1)}
@@ -115,7 +115,7 @@ const Product = ({ product }: { product: ProductType }) => {
                 <AiOutlineMinus />
               </Button>
             </Col>
-            <Col md={3}>
+            <Col xs={3}>
               <Form.Control
                 style={{ width: 40 }}
                 value={qty}

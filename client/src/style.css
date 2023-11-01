@@ -40,8 +40,36 @@
   padding-bottom: 8px !important ;
 }
 
+.card-size {
+  width: 250px;
+  height: 500px;
+}
+
+.card-img {
+  width: 248px;
+  height: 200px;
+}
+
+.category-button {
+  width: 60%;
+}
+
 @media (max-width: 767px) {
   .footer {
     display: none;
+  }
+
+  .card-img {
+    width: 498px;
+    height: 300px;
+  }
+
+  .card-size {
+    width: 500px;
+    height: 600px;
+  }
+
+  .category-button {
+    width: 100%;
   }
 }
