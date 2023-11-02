@@ -8,7 +8,11 @@ import {
 import { setContext } from '@apollo/client/link/context';
 
 const httpLink: ApolloLink = createHttpLink({
-  uri: `${import.meta.env.VITE_DEVELOPMENT_SERVER}/graphql`,
+  uri: `${
+    import.meta.env.PROD
+      ? import.meta.env.VITE_PRODUCTION_SERVER
+      : import.meta.env.VITE_DEVELOPMENT_SERVER
+  }/graphql`,
 });
 
 const authLink = setContext((_, { headers }) => {
