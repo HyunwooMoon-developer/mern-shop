@@ -4,7 +4,7 @@ import { formatUSD } from '../utils/functions';
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 import { AuthContext } from '../context/auth';
 import { ShopContext } from '../context/shop';
-import { ApolloCache, useMutation, useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { GET_CART } from '../utils/queries';
 import { UPDATE_CART } from '../utils/mutations';
 
