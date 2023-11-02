@@ -36,7 +36,7 @@ const Product = ({ product }: { product: ProductType }) => {
       id: cart?.id,
       input: items,
     },
-    update(cache: ApolloCache<any>) {
+    update() {
       toggleCart();
     },
     refetchQueries: [GET_CART, 'getCart'],

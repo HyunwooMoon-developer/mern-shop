@@ -54,7 +54,7 @@ const Cart = () => {
         zip: stripeToken?.card.address_zip,
       },
     },
-    update(cache, { data: { addOrder } }) {
+    update(_, { data: { addOrder } }) {
       if (addOrder.success) {
         toggleCart();
       }

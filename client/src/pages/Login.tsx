@@ -16,7 +16,7 @@ const Login = () => {
 
   const [loginUser] = useMutation(LOGIN, {
     variables: userInfo,
-    update(cache, { data: { login: userData } }) {
+    update(_, { data: { login: userData } }) {
       login(userData);
       redirect('/');
     },

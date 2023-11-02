@@ -15,7 +15,7 @@ const Register = () => {
 
   const [register] = useMutation(REGISTER, {
     variables: { input: userInfo },
-    update(cache, { data: { register } }) {
+    update(_, { data: { register } }) {
       if (register.success) {
         navigate('/login');
       }

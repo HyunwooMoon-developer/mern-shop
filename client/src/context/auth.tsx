@@ -17,7 +17,7 @@ if (localStorage.getItem('mernShopToken')) {
 
 export const AuthContext = createContext<AuthContextType>({
   user: null,
-  login: (userInfo: { username: string; password: string }) => {},
+  login: () => {},
   logout: () => {},
 });
 
