@@ -9,6 +9,7 @@
     "dev": "tsc && node dist/app.js",
     "seed": "ts-node src/utils/seedData.ts",
     "postinstall": "tsc",
+    "build": "npm install && tsc",
     "start": "node dist/app.js"
   },
   "keywords": [],
