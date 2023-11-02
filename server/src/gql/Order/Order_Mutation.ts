@@ -1,8 +1,9 @@
 import { GraphQLError } from 'graphql';
-import checkAuth from '../../utils/checkAuth';
-import Order from '../../models/OrderModel';
+import checkAuth from '../../utils/checkAuth.js';
+import Order from '../../models/OrderModel.js';
 import { Stripe } from 'stripe';
-import Cart from '../../models/CartModel';
+import Cart from '../../models/CartModel.js';
+import { config } from '../../utils/config.js';
 
 const Order_Mutation = {
   Mutation: {
@@ -20,7 +21,7 @@ const Order_Mutation = {
           });
         }
 
-        let stripe = new Stripe(process.env.STRIPE_KEY as string, {
+        let stripe = new Stripe(config.server.STRIPE_KEY as string, {
           apiVersion: '2023-10-16',
         });
 

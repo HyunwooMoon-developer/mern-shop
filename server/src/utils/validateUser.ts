@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
-import UserInterface from '../interfaces/UserInterface';
+import UserInterface from '../interfaces/UserInterface.js';
+import { config } from './config.js';
 
 const validateRegisterInput = (
   username: string,
@@ -49,7 +50,7 @@ const generateToken = (user: UserInterface) =>
       id: user.id,
       isAdmin: user.isAdmin,
     },
-    process.env.SECRET_TOKEN as string,
+    config.server.SECRET_TOKEN as string,
     { expiresIn: '24h' }
   );
 

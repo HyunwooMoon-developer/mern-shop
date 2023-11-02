@@ -9,16 +9,16 @@ import { ApolloServerPluginLandingPageDisabled } from '@apollo/server/plugin/dis
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { expressMiddleware } from '@apollo/server/express4';
-import connectDB from './utils/connectDB';
-import typeDefs from './gql/typeDefs';
-import resolvers from './gql/resolvers';
-import { Schema } from 'mongoose';
+import connectDB from './utils/connectDB.js';
+import typeDefs from './gql/typeDefs.js';
+import resolvers from './gql/resolvers.js';
+import { config } from './utils/config.js';
 
 dotenv.config();
 
-let schema = makeExecutableSchema({ typeDefs, resolvers });
+const port = config.server.port;
 
-const port = process.env.PORT || 50000;
+let schema = makeExecutableSchema({ typeDefs, resolvers });
 
 const startApolloServer = async () => {
   const app: Application = express();
@@ -29,7 +29,7 @@ const startApolloServer = async () => {
     schema,
     plugins: [
       ApolloServerPluginDrainHttpServer({ httpServer }),
-      process.env.NODE_ENV === 'production'
+      config.server.NODE_ENV === 'production'
         ? ApolloServerPluginLandingPageDisabled()
         : ApolloServerPluginLandingPageLocalDefault(),
     ],

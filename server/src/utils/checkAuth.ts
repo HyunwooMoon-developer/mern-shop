@@ -1,5 +1,6 @@
 import { GraphQLError } from 'graphql';
 import jwt from 'jsonwebtoken';
+import { config } from './config.js';
 
 const checkAuth = (context: any) => {
   const authHeader = context.req.headers.authorization;
@@ -9,7 +10,10 @@ const checkAuth = (context: any) => {
 
     if (token) {
       try {
-        const user: any = jwt.verify(token, process.env.SECRET_TOKEN as string);
+        const user: any = jwt.verify(
+          token,
+          config.server.SECRET_TOKEN as string
+        );
 
         return user;
       } catch (err) {

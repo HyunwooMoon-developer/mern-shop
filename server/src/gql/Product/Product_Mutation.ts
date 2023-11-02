@@ -1,6 +1,6 @@
 import { GraphQLError } from 'graphql';
-import checkAuth from '../../utils/checkAuth';
-import Product from '../../models/ProductModel';
+import checkAuth from '../../utils/checkAuth.js';
+import Product from '../../models/ProductModel.js';
 
 const Product_Mutation = {
   Mutation: {

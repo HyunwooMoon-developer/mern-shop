@@ -1,6 +1,6 @@
 import { GraphQLError } from 'graphql';
-import checkAuth from '../../utils/checkAuth';
-import Cart from '../../models/CartModel';
+import checkAuth from '../../utils/checkAuth.js';
+import Cart from '../../models/CartModel.js';
 
 const Cart_Mutation = {
   Mutation: {

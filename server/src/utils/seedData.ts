@@ -1,15 +1,16 @@
 import mongoose from 'mongoose';
-import Category from '../models/CategoryModel';
+import Category from '../models/CategoryModel.js';
 import dotenv from 'dotenv';
-import User from '../models/UserModel';
-import Product from '../models/ProductModel';
-import Cart from '../models/CartModel';
-import Order from '../models/OrderModel';
+import User from '../models/UserModel.js';
+import Product from '../models/ProductModel.js';
+import Cart from '../models/CartModel.js';
+import { config } from '../utils/config.js';
+
 dotenv.config();
 
 const seedData = async () => {
   try {
-    const db = await mongoose.connect(process.env.DB_URI as string, {
+    const db = await mongoose.connect(config.server.DB_URI as string, {
       serverSelectionTimeoutMS: 10000,
     });
 

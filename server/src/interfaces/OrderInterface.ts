@@ -1,5 +1,5 @@
 import { Document } from 'mongoose';
-import CartInterface from './CartInterface';
+import CartInterface from './CartInterface.js';
 
 interface OrderInterface extends Document {
   orderList: CartInterface;

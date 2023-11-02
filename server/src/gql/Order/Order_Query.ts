@@ -1,6 +1,6 @@
 import { GraphQLError } from 'graphql';
-import Order from '../../models/OrderModel';
-import checkAuth from '../../utils/checkAuth';
+import Order from '../../models/OrderModel.js';
+import checkAuth from '../../utils/checkAuth.js';
 
 const Order_Query = {
   Query: {

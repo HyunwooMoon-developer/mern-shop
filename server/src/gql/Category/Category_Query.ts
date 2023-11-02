@@ -1,4 +1,4 @@
-import Category from '../../models/CategoryModel';
+import Category from '../../models/CategoryModel.js';
 
 const Category_Query = {
   Query: {

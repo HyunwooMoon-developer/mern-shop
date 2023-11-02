@@ -4,9 +4,9 @@ import {
   generateToken,
   validateLoginInput,
   validateRegisterInput,
-} from '../../utils/validateUser';
-import User from '../../models/UserModel';
-import Cart from '../../models/CartModel';
+} from '../../utils/validateUser.js';
+import User from '../../models/UserModel.js';
+import Cart from '../../models/CartModel.js';
 
 const User_Mutation = {
   Mutation: {

@@ -1,11 +1,11 @@
-import User_Mutation from './User/User_Mutation';
-import Category_Query from './Category/Category_Query';
-import Product_Mutation from './Product/Product_Mutation';
-import Product_Query from './Product/Product_Query';
-import Cart_Mutation from './Cart/Cart_Mutation';
-import Cart_Query from './Cart/Cart_Query';
-import Order_Mutation from './Order/Order_Mutation';
-import Order_Query from './Order/Order_Query';
+import User_Mutation from './User/User_Mutation.js';
+import Category_Query from './Category/Category_Query.js';
+import Product_Mutation from './Product/Product_Mutation.js';
+import Product_Query from './Product/Product_Query.js';
+import Cart_Mutation from './Cart/Cart_Mutation.js';
+import Cart_Query from './Cart/Cart_Query.js';
+import Order_Mutation from './Order/Order_Mutation.js';
+import Order_Query from './Order/Order_Query.js';
 
 const resolvers = [
   User_Mutation,
